@@ -22,52 +22,35 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background-color: var(--dark-color);
             color: var(--light-color);
-            overflow: hidden;
-            height: 100vh;
+            overflow-x: hidden;
         }
 
         .presentation-container {
             position: relative;
             width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
         }
 
         .slides-container {
-            flex: 1;
-            position: relative;
-            overflow: hidden;
+            width: 100%;
         }
 
         .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* Изменено с center на flex-start */
+            justify-content: center;
             align-items: center;
             padding: 2rem;
-            opacity: 0;
-            transform: translateX(100%);
-            transition: var(--transition);
             background: linear-gradient(135deg, var(--dark-color) 0%, #3a3a52 100%);
-            overflow-y: auto; /* Добавлена прокрутка для мобильных */
-        }
-
-        .slide.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .slide.prev {
-            transform: translateX(-100%);
+            position: relative;
         }
 
         .slide-content {
@@ -79,7 +62,7 @@
             backdrop-filter: blur(10px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            margin: 2rem 0; /* Добавлены отступы сверху и снизу */
+            margin: 2rem 0;
         }
 
         .slide-title {
@@ -119,22 +102,16 @@
         }
 
         .slide-number {
-            position: sticky; /* Изменено на sticky для мобильных */
-            bottom: 10px;
-            right: 10px;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
             font-size: 1rem;
             opacity: 0.7;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 5px 10px;
-            border-radius: 10px;
-            align-self: flex-end;
-            margin-top: auto; /* Прижимаем к низу */
-            margin-bottom: 10px;
         }
 
         .controls {
             position: fixed;
-            bottom: 70px; /* Поднимаем над футером */
+            bottom: 70px;
             left: 0;
             width: 100%;
             display: flex;
@@ -170,15 +147,8 @@
             transform: translateY(1px);
         }
 
-        .btn:disabled {
-            background: #555;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
         .progress-bar {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             height: 5px;
@@ -285,15 +255,14 @@
         @media (max-width: 768px) {
             .slide {
                 padding: 1rem;
-                justify-content: flex-start; /* Контент начинается сверху */
-                overflow-y: auto; /* Разрешаем прокрутку */
-                -webkit-overflow-scrolling: touch; /* Плавная прокрутка на iOS */
+                min-height: 100vh;
+                justify-content: flex-start;
+                padding-top: 2rem;
             }
             
             .slide-content {
                 padding: 1.5rem;
-                margin: 1rem 0; /* Уменьшаем отступы на мобильных */
-                min-height: auto; /* Убираем фиксированную высоту */
+                margin: 1rem 0;
             }
             
             .slide-title {
@@ -322,28 +291,6 @@
                 bottom: 60px;
                 padding: 0 15px;
             }
-            
-            .slide-number {
-                position: relative;
-                align-self: center;
-                margin-top: 20px;
-                margin-bottom: 0;
-            }
-            
-            /* Улучшаем читаемость при прокрутке */
-            .slide::-webkit-scrollbar {
-                width: 5px;
-            }
-            
-            .slide::-webkit-scrollbar-track {
-                background: rgba(255, 255, 255, 0.1);
-                border-radius: 10px;
-            }
-            
-            .slide::-webkit-scrollbar-thumb {
-                background: var(--primary-color);
-                border-radius: 10px;
-            }
         }
         
         @media (max-width: 480px) {
@@ -353,6 +300,7 @@
             
             .slide {
                 padding: 0.5rem;
+                padding-top: 1.5rem;
             }
             
             .slide-content {
@@ -384,15 +332,6 @@
                 font-size: 0.9rem;
             }
         }
-
-        /* Дополнительные стили для улучшения прокрутки */
-        .slide-content-wrapper {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 1rem 0;
-        }
     </style>
 </head>
 <body>
@@ -401,117 +340,107 @@
         
         <div class="slides-container">
             <!-- Слайд 1 -->
-            <div class="slide active">
-                <div class="slide-content-wrapper">
-                    <div class="slide-content fade-in-up">
-                        <h1 class="slide-title">Современные технологии</h1>
-                        <h2 class="slide-subtitle">Инновации, меняющие мир</h2>
-                        <p class="slide-text">Презентация о самых современных технологиях и трендах, формирующих наше будущее.</p>
-                        <div class="slide-indicators">
-                            <div class="indicator active"></div>
-                            <div class="indicator"></div>
-                            <div class="indicator"></div>
-                            <div class="indicator"></div>
-                            <div class="indicator"></div>
-                        </div>
+            <section class="slide" id="slide1">
+                <div class="slide-content fade-in-up">
+                    <h1 class="slide-title">Современные технологии</h1>
+                    <h2 class="slide-subtitle">Инновации, меняющие мир</h2>
+                    <p class="slide-text">Презентация о самых современных технологиях и трендах, формирующих наше будущее.</p>
+                    <div class="slide-indicators">
+                        <div class="indicator active" data-slide="1"></div>
+                        <div class="indicator" data-slide="2"></div>
+                        <div class="indicator" data-slide="3"></div>
+                        <div class="indicator" data-slide="4"></div>
+                        <div class="indicator" data-slide="5"></div>
                     </div>
-                    <div class="slide-number">1 / 5</div>
                 </div>
-            </div>
+                <div class="slide-number">1 / 5</div>
+            </section>
             
             <!-- Слайд 2 -->
-            <div class="slide">
-                <div class="slide-content-wrapper">
-                    <div class="slide-content fade-in-up">
-                        <h1 class="slide-title">Искусственный интеллект</h1>
-                        <h2 class="slide-subtitle">Будущее уже здесь</h2>
-                        <p class="slide-text">ИИ трансформирует все отрасли, от медицины до финансов, обеспечивая беспрецедентную эффективность и персонализацию.</p>
-                        
-                        <div class="slide-grid">
-                            <div class="grid-item">
-                                <h3 class="grid-title">Машинное обучение</h3>
-                                <p>Алгоритмы, которые учатся на данных и улучшаются со временем без явного программирования.</p>
-                            </div>
-                            <div class="grid-item">
-                                <h3 class="grid-title">Обработка естественного языка</h3>
-                                <p>Технологии, позволяющие компьютерам понимать, интерпретировать и генерировать человеческий язык.</p>
-                            </div>
+            <section class="slide" id="slide2">
+                <div class="slide-content fade-in-up">
+                    <h1 class="slide-title">Искусственный интеллект</h1>
+                    <h2 class="slide-subtitle">Будущее уже здесь</h2>
+                    <p class="slide-text">ИИ трансформирует все отрасли, от медицины до финансов, обеспечивая беспрецедентную эффективность и персонализацию.</p>
+                    
+                    <div class="slide-grid">
+                        <div class="grid-item">
+                            <h3 class="grid-title">Машинное обучение</h3>
+                            <p>Алгоритмы, которые учатся на данных и улучшаются со временем без явного программирования.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h3 class="grid-title">Обработка естественного языка</h3>
+                            <p>Технологии, позволяющие компьютерам понимать, интерпретировать и генерировать человеческий язык.</p>
                         </div>
                     </div>
-                    <div class="slide-number">2 / 5</div>
                 </div>
-            </div>
+                <div class="slide-number">2 / 5</div>
+            </section>
             
             <!-- Слайд 3 -->
-            <div class="slide">
-                <div class="slide-content-wrapper">
-                    <div class="slide-content fade-in-up">
-                        <h1 class="slide-title">Квантовые вычисления</h1>
-                        <h2 class="slide-subtitle">Следующий технологический прорыв</h2>
-                        <p class="slide-text">Квантовые компьютеры решают задачи, недоступные для классических компьютеров, открывая новые горизонты в науке и технологиях.</p>
-                        
-                        <ul class="slide-list">
-                            <li>Экспоненциальное ускорение вычислений для определенных задач</li>
-                            <li>Прорывы в криптографии и создании новых материалов</li>
-                            <li>Моделирование сложных молекулярных структур для фармацевтики</li>
-                            <li>Оптимизация сложных систем и логистики</li>
-                        </ul>
-                    </div>
-                    <div class="slide-number">3 / 5</div>
+            <section class="slide" id="slide3">
+                <div class="slide-content fade-in-up">
+                    <h1 class="slide-title">Квантовые вычисления</h1>
+                    <h2 class="slide-subtitle">Следующий технологический прорыв</h2>
+                    <p class="slide-text">Квантовые компьютеры решают задачи, недоступные для классических компьютеров, открывая новые горизонты в науке и технологиях.</p>
+                    
+                    <ul class="slide-list">
+                        <li>Экспоненциальное ускорение вычислений для определенных задач</li>
+                        <li>Прорывы в криптографии и создании новых материалов</li>
+                        <li>Моделирование сложных молекулярных структур для фармацевтики</li>
+                        <li>Оптимизация сложных систем и логистики</li>
+                    </ul>
                 </div>
-            </div>
+                <div class="slide-number">3 / 5</div>
+            </section>
             
             <!-- Слайд 4 -->
-            <div class="slide">
-                <div class="slide-content-wrapper">
-                    <div class="slide-content fade-in-up">
-                        <h1 class="slide-title">Интернет вещей (IoT)</h1>
-                        <h2 class="slide-subtitle">Связанный мир</h2>
-                        <p class="slide-text">Миллиарды устройств, подключенных к интернету, создают интеллектуальные экосистемы для умных домов, городов и промышленности.</p>
-                        
-                        <div class="slide-grid">
-                            <div class="grid-item">
-                                <h3 class="grid-title">Умный дом</h3>
-                                <p>Автоматизированные системы управления освещением, отоплением и безопасностью.</p>
-                            </div>
-                            <div class="grid-item">
-                                <h3 class="grid-title">Промышленный IoT</h3>
-                                <p>Оптимизация производственных процессов и прогнозирование обслуживания оборудования.</p>
-                            </div>
-                            <div class="grid-item">
-                                <h3 class="grid-title">Умные города</h3>
-                                <p>Интеллектуальные системы управления транспортом, энергопотреблением и общественной безопасностью.</p>
-                            </div>
-                            <div class="grid-item">
-                                <h3 class="grid-title">Носимые устройства</h3>
-                                <p>Технологии для мониторинга здоровья и фитнеса в реальном времени.</p>
-                            </div>
+            <section class="slide" id="slide4">
+                <div class="slide-content fade-in-up">
+                    <h1 class="slide-title">Интернет вещей (IoT)</h1>
+                    <h2 class="slide-subtitle">Связанный мир</h2>
+                    <p class="slide-text">Миллиарды устройств, подключенных к интернету, создают интеллектуальные экосистемы для умных домов, городов и промышленности.</p>
+                    
+                    <div class="slide-grid">
+                        <div class="grid-item">
+                            <h3 class="grid-title">Умный дом</h3>
+                            <p>Автоматизированные системы управления освещением, отоплением и безопасностью.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h3 class="grid-title">Промышленный IoT</h3>
+                            <p>Оптимизация производственных процессов и прогнозирование обслуживания оборудования.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h3 class="grid-title">Умные города</h3>
+                            <p>Интеллектуальные системы управления транспортом, энергопотреблением и общественной безопасностью.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h3 class="grid-title">Носимые устройства</h3>
+                            <p>Технологии для мониторинга здоровья и фитнеса в реальном времени.</p>
                         </div>
                     </div>
-                    <div class="slide-number">4 / 5</div>
                 </div>
-            </div>
+                <div class="slide-number">4 / 5</div>
+            </section>
             
             <!-- Слайд 5 -->
-            <div class="slide">
-                <div class="slide-content-wrapper">
-                    <div class="slide-content fade-in-up">
-                        <h1 class="slide-title">Будущее технологий</h1>
-                        <h2 class="slide-subtitle">Что нас ждет впереди?</h2>
-                        <p class="slide-text">Технологии продолжают развиваться экспоненциально, открывая новые возможности и создавая вызовы для человечества.</p>
-                        
-                        <ul class="slide-list">
-                            <li><span class="highlight">Нейроинтерфейсы</span> - прямое взаимодействие мозга с компьютерами</li>
-                            <li><span class="highlight">Биоинженерия</span> - редактирование генома и создание искусственных органов</li>
-                            <li><span class="highlight">Космическая экспансия</span> - колонизация Марса и добыча ресурсов на астероидах</li>
-                            <li><span class="highlight">Устойчивые технологии</span> - решения для борьбы с изменением климата</li>
-                        </ul>
-                        
-                        <p class="slide-text" style="margin-top: 2rem;">Будущее формируется нашими сегодняшними решениями и инновациями.</p>
-                    </div>
-                    <div class="slide-number">5 / 5</div>
+            <section class="slide" id="slide5">
+                <div class="slide-content fade-in-up">
+                    <h1 class="slide-title">Будущее технологий</h1>
+                    <h2 class="slide-subtitle">Что нас ждет впереди?</h2>
+                    <p class="slide-text">Технологии продолжают развиваться экспоненциально, открывая новые возможности и создавая вызовы для человечества.</p>
+                    
+                    <ul class="slide-list">
+                        <li><span class="highlight">Нейроинтерфейсы</span> - прямое взаимодействие мозга с компьютерами</li>
+                        <li><span class="highlight">Биоинженерия</span> - редактирование генома и создание искусственных органов</li>
+                        <li><span class="highlight">Космическая экспансия</span> - колонизация Марса и добыча ресурсов на астероидах</li>
+                        <li><span class="highlight">Устойчивые технологии</span> - решения для борьбы с изменением климата</li>
+                    </ul>
+                    
+                    <p class="slide-text" style="margin-top: 2rem;">Будущее формируется нашими сегодняшними решениями и инновациями.</p>
                 </div>
-            </div>
+                <div class="slide-number">5 / 5</div>
+            </section>
         </div>
         
         <div class="controls">
@@ -541,62 +470,75 @@
             const nextBtn = document.getElementById('next-btn');
             const indicators = document.querySelectorAll('.indicator');
             const progressBar = document.querySelector('.progress-bar');
-            let currentSlide = 0;
+            let currentSlideIndex = 0;
             
-            // Функция для обновления слайдов
-            function updateSlides() {
-                slides.forEach((slide, index) => {
-                    slide.classList.remove('active', 'prev');
-                    if (index === currentSlide) {
-                        slide.classList.add('active');
-                        // Прокручиваем слайд вверх при переключении
-                        slide.scrollTop = 0;
-                    } else if (index < currentSlide) {
-                        slide.classList.add('prev');
-                    }
-                });
+            // Функция для обновления активного слайда
+            function updateActiveSlide() {
+                const windowHeight = window.innerHeight;
+                const scrollPosition = window.scrollY + windowHeight / 2;
                 
+                // Находим текущий слайд по позиции прокрутки
+                let newActiveSlide = 0;
+                for (let i = 0; i < slides.length; i++) {
+                    const slideTop = slides[i].offsetTop;
+                    const slideBottom = slideTop + slides[i].offsetHeight;
+                    
+                    if (scrollPosition >= slideTop && scrollPosition < slideBottom) {
+                        newActiveSlide = i;
+                        break;
+                    }
+                }
+                
+                if (newActiveSlide !== currentSlideIndex) {
+                    currentSlideIndex = newActiveSlide;
+                    updateUI();
+                }
+            }
+            
+            // Функция для обновления UI
+            function updateUI() {
                 // Обновление индикаторов
                 indicators.forEach((indicator, index) => {
-                    indicator.classList.toggle('active', index === currentSlide);
+                    indicator.classList.toggle('active', index === currentSlideIndex);
                 });
                 
                 // Обновление прогресс-бара
-                progressBar.style.width = `${(currentSlide / (slides.length - 1)) * 100}%`;
+                progressBar.style.width = `${(currentSlideIndex / (slides.length - 1)) * 100}%`;
                 
                 // Обновление состояния кнопок
-                prevBtn.disabled = currentSlide === 0;
-                nextBtn.disabled = currentSlide === slides.length - 1;
-                
-                // Добавление анимации для контента
-                const activeContent = document.querySelector('.slide.active .slide-content');
-                if (activeContent) {
-                    activeContent.classList.remove('fade-in-up');
-                    void activeContent.offsetWidth; // Перезапуск анимации
-                    activeContent.classList.add('fade-in-up');
-                }
+                prevBtn.disabled = currentSlideIndex === 0;
+                nextBtn.disabled = currentSlideIndex === slides.length - 1;
             }
             
             // Переход к следующему слайду
             function nextSlide() {
-                if (currentSlide < slides.length - 1) {
-                    currentSlide++;
-                    updateSlides();
+                if (currentSlideIndex < slides.length - 1) {
+                    currentSlideIndex++;
+                    scrollToSlide(currentSlideIndex);
                 }
             }
             
             // Переход к предыдущему слайду
             function prevSlide() {
-                if (currentSlide > 0) {
-                    currentSlide--;
-                    updateSlides();
+                if (currentSlideIndex > 0) {
+                    currentSlideIndex--;
+                    scrollToSlide(currentSlideIndex);
                 }
             }
             
-            // Переход к определенному слайду
+            // Прокрутка к определенному слайду
+            function scrollToSlide(index) {
+                const slide = slides[index];
+                window.scrollTo({
+                    top: slide.offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+            
+            // Переход к определенному слайду по индикатору
             function goToSlide(index) {
-                currentSlide = index;
-                updateSlides();
+                currentSlideIndex = index;
+                scrollToSlide(index);
             }
             
             // Обработчики событий для кнопок
@@ -610,15 +552,27 @@
             
             // Обработчики событий для клавиатуры
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') {
+                if (e.key === 'ArrowRight' || e.key === 'PageDown') {
                     nextSlide();
-                } else if (e.key === 'ArrowLeft') {
+                } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
                     prevSlide();
+                } else if (e.key === 'Home') {
+                    goToSlide(0);
+                } else if (e.key === 'End') {
+                    goToSlide(slides.length - 1);
                 }
             });
             
+            // Обработчик прокрутки
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                // Используем debounce для оптимизации
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(updateActiveSlide, 50);
+            });
+            
             // Инициализация
-            updateSlides();
+            updateActiveSlide();
         });
     </script>
 </body>

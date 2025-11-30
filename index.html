@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Современная презентация</title>
+    <title>Инновации в устойчивом развитии</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #6c63ff;
-            --secondary-color: #4a44b5;
-            --dark-color: #2a2a3c;
-            --light-color: #f8f9fa;
-            --accent-color: #ff6b6b;
-            --text-color: #333;
+            --primary-color: #00b894;
+            --secondary-color: #0984e3;
+            --accent-color: #fdcb6e;
+            --dark-color: #0f1a2a;
+            --light-color: #ffffff;
+            --text-color: #2d3436;
             --transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
@@ -19,11 +20,11 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: var(--dark-color);
+            background: linear-gradient(135deg, #0f1a2a 0%, #1e3a5f 100%);
             color: var(--light-color);
             overflow: hidden;
             height: 100vh;
@@ -41,7 +42,6 @@
             flex: 1;
             position: relative;
             overflow: hidden;
-            padding-bottom: 120px; /* Добавляем отступ снизу для кнопок */
         }
 
         .slide {
@@ -56,61 +56,99 @@
             align-items: center;
             padding: 2rem;
             opacity: 0;
-            transform: translateX(100%);
+            transform: scale(0.9) rotateX(10deg);
             transition: var(--transition);
-            background: linear-gradient(135deg, var(--dark-color) 0%, #3a3a52 100%);
+            perspective: 1000px;
         }
 
         .slide.active {
             opacity: 1;
-            transform: translateX(0);
+            transform: scale(1) rotateX(0);
         }
 
         .slide.prev {
-            transform: translateX(-100%);
+            transform: scale(0.8) rotateX(-10deg);
         }
 
         .slide-content {
-            max-width: 900px;
+            max-width: 1100px;
             text-align: center;
-            padding: 2rem;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 20px; /* Отступ от кнопок */
+            padding: 3.5rem;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
         }
 
         .slide-title {
-            font-size: 3rem;
+            font-size: 4rem;
             margin-bottom: 1.5rem;
-            color: var(--primary-color);
-            text-shadow: 0 2px 10px rgba(108, 99, 255, 0.3);
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            font-weight: 800;
+            letter-spacing: -1px;
         }
 
         .slide-subtitle {
-            font-size: 1.5rem;
+            font-size: 2rem;
             margin-bottom: 2rem;
-            color: var(--accent-color);
-            font-weight: 300;
+            color: var(--secondary-color);
+            font-weight: 500;
         }
 
         .slide-text {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
         }
 
         .slide-list {
             text-align: left;
-            margin: 1.5rem 0;
+            margin: 2rem 0;
             padding-left: 2rem;
         }
 
         .slide-list li {
-            margin-bottom: 0.8rem;
-            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: flex-start;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .slide-list li::before {
+            content: '';
+            position: absolute;
+            left: -1rem;
+            top: 0.8rem;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary-color);
+        }
+
+        .slide-list li i {
+            color: var(--primary-color);
+            margin-right: 12px;
+            margin-top: 5px;
         }
 
         .highlight {
@@ -124,44 +162,63 @@
             right: 20px;
             font-size: 1rem;
             opacity: 0.7;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
         }
 
         .controls {
-            position: fixed;
-            bottom: 60px; /* Поднимаем кнопки над футером */
+            position: absolute;
+            bottom: 30px;
             left: 0;
             width: 100%;
             display: flex;
             justify-content: center;
             gap: 20px;
             z-index: 100;
-            padding: 0 20px;
         }
 
         .btn {
-            background: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 16px 32px;
             border-radius: 50px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 600;
             transition: var(--transition);
-            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
-            background: var(--secondary-color);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
         }
 
         .btn:active {
-            transform: translateY(1px);
+            transform: translateY(2px);
         }
 
         .btn:disabled {
@@ -175,8 +232,8 @@
             position: absolute;
             top: 0;
             left: 0;
-            height: 5px;
-            background: var(--primary-color);
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
             width: 0%;
             transition: width 0.3s ease;
             z-index: 100;
@@ -184,67 +241,206 @@
 
         .slide-indicators {
             display: flex;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 12px;
+            margin-top: 30px;
         }
 
         .indicator {
-            width: 12px;
-            height: 12px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
             cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .indicator::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            transform: scale(0);
             transition: var(--transition);
         }
 
+        .indicator.active::before {
+            transform: scale(1);
+        }
+
         .indicator.active {
-            background: var(--primary-color);
-            transform: scale(1.2);
+            box-shadow: 0 0 15px var(--primary-color);
         }
 
         .slide-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 30px;
-            margin-top: 2rem;
+            margin-top: 2.5rem;
             width: 100%;
         }
 
         .grid-item {
             background: rgba(255, 255, 255, 0.05);
-            padding: 1.5rem;
-            border-radius: 15px;
+            padding: 2.5rem;
+            border-radius: 20px;
             text-align: left;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .grid-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), transparent);
+            opacity: 0;
             transition: var(--transition);
         }
 
+        .grid-item:hover::before {
+            opacity: 0.05;
+        }
+
         .grid-item:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
 
         .grid-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
             color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin: 2.5rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            min-width: 180px;
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
         }
 
         .footer {
-            position: fixed;
-            bottom: 0;
+            position: absolute;
+            bottom: 10px;
             left: 0;
             width: 100%;
             text-align: center;
             font-size: 0.9rem;
             opacity: 0.7;
-            padding: 15px;
-            background-color: rgba(42, 42, 60, 0.8);
-            backdrop-filter: blur(5px);
-            z-index: 90;
+            padding: 10px;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-50%);
+        }
+
+        .timeline-item {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            min-width: 180px;
+            transition: var(--transition);
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .timeline-year {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-desc {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
         }
 
         /* Анимации */
-        @keyframes fadeInUp {
+        @keyframes pulse-glow {
+            0% {
+                box-shadow: 0 0 5px var(--primary-color);
+            }
+            50% {
+                box-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--secondary-color);
+            }
+            100% {
+                box-shadow: 0 0 5px var(--primary-color);
+            }
+        }
+
+        .pulse-glow {
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes slideIn {
             from {
                 opacity: 0;
                 transform: translateY(30px);
@@ -255,80 +451,63 @@
             }
         }
 
-        .fade-in-up {
-            animation: fadeInUp 0.8s ease forwards;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        .pulse {
-            animation: pulse 2s infinite;
+        .slide-in {
+            animation: slideIn 0.8s ease forwards;
         }
 
         /* Медиа-запросы для адаптивности */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .slide-title {
-                font-size: 2.2rem;
+                font-size: 3rem;
             }
             
             .slide-subtitle {
-                font-size: 1.2rem;
+                font-size: 1.6rem;
             }
             
             .slide-text {
-                font-size: 1rem;
+                font-size: 1.2rem;
             }
             
             .slide-grid {
                 grid-template-columns: 1fr;
             }
             
-            .btn {
-                padding: 10px 20px;
-                font-size: 0.9rem;
+            .timeline {
+                flex-direction: column;
+                gap: 1.5rem;
             }
             
-            .controls {
-                bottom: 50px; /* Увеличиваем отступ от футера на мобильных */
-                padding: 0 15px;
-            }
-            
-            .slides-container {
-                padding-bottom: 100px; /* Уменьшаем отступ на мобильных */
-            }
-            
-            .slide-content {
-                padding: 1.5rem;
-                margin-bottom: 15px;
+            .timeline::before {
+                display: none;
             }
         }
-        
-        @media (max-width: 480px) {
-            .controls {
-                bottom: 45px;
+
+        @media (max-width: 768px) {
+            .slide-title {
+                font-size: 2.5rem;
             }
             
-            .slides-container {
-                padding-bottom: 90px;
+            .slide-subtitle {
+                font-size: 1.4rem;
             }
             
-            .slide {
-                padding: 1rem;
+            .slide-text {
+                font-size: 1.1rem;
             }
             
             .btn {
-                padding: 8px 16px;
-                font-size: 0.85rem;
+                padding: 14px 28px;
+                font-size: 1rem;
+            }
+            
+            .stats-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .stat-item {
+                min-width: auto;
             }
         }
     </style>
@@ -340,10 +519,10 @@
         <div class="slides-container">
             <!-- Слайд 1 -->
             <div class="slide active">
-                <div class="slide-content fade-in-up">
-                    <h1 class="slide-title">Современные технологии</h1>
-                    <h2 class="slide-subtitle">Инновации, меняющие мир</h2>
-                    <p class="slide-text">Презентация о самых современных технологиях и трендах, формирующих наше будущее.</p>
+                <div class="slide-content slide-in">
+                    <h1 class="slide-title">Устойчивое развитие</h1>
+                    <h2 class="slide-subtitle">Технологии для зеленого будущего</h2>
+                    <p class="slide-text">Исследуем инновационные решения, которые помогают создать устойчивое будущее для нашей планеты.</p>
                     <div class="slide-indicators">
                         <div class="indicator active"></div>
                         <div class="indicator"></div>
@@ -357,19 +536,27 @@
             
             <!-- Слайд 2 -->
             <div class="slide">
-                <div class="slide-content fade-in-up">
-                    <h1 class="slide-title">Искусственный интеллект</h1>
-                    <h2 class="slide-subtitle">Будущее уже здесь</h2>
-                    <p class="slide-text">ИИ трансформирует все отрасли, от медицины до финансов, обеспечивая беспрецедентную эффективность и персонализацию.</p>
+                <div class="slide-content slide-in">
+                    <h1 class="slide-title">Зеленая энергетика</h1>
+                    <h2 class="slide-subtitle">Революция в производстве энергии</h2>
+                    <p class="slide-text">Современные технологии позволяют получать энергию из возобновляемых источников с максимальной эффективностью.</p>
                     
                     <div class="slide-grid">
-                        <div class="grid-item">
-                            <h3 class="grid-title">Машинное обучение</h3>
-                            <p>Алгоритмы, которые учатся на данных и улучшаются со временем без явного программирования.</p>
+                        <div class="grid-item pulse-glow">
+                            <h3 class="grid-title"><i class="fas fa-solar-panel"></i> Солнечная энергия</h3>
+                            <p>Новые фотоэлектрические панели с эффективностью более 25% и технологии концентрации солнечной энергии.</p>
                         </div>
-                        <div class="grid-item">
-                            <h3 class="grid-title">Обработка естественного языка</h3>
-                            <p>Технологии, позволяющие компьютерам понимать, интерпретировать и генерировать человеческий язык.</p>
+                        <div class="grid-item pulse-glow">
+                            <h3 class="grid-title"><i class="fas fa-wind"></i> Ветровая энергия</h3>
+                            <p>Плавающие ветровые турбины и установки нового поколения, работающие при низких скоростях ветра.</p>
+                        </div>
+                        <div class="grid-item pulse-glow">
+                            <h3 class="grid-title"><i class="fas fa-water"></i> Гидроэнергетика</h3>
+                            <p>Инновационные малые гидроэлектростанции и технологии использования энергии волн и приливов.</p>
+                        </div>
+                        <div class="grid-item pulse-glow">
+                            <h3 class="grid-title"><i class="fas fa-atom"></i> Геотермальная энергия</h3>
+                            <p>Глубокое бурение и усовершенствованные системы для доступа к теплу земных недр.</p>
                         </div>
                     </div>
                 </div>
@@ -378,16 +565,31 @@
             
             <!-- Слайд 3 -->
             <div class="slide">
-                <div class="slide-content fade-in-up">
-                    <h1 class="slide-title">Квантовые вычисления</h1>
-                    <h2 class="slide-subtitle">Следующий технологический прорыв</h2>
-                    <p class="slide-text">Квантовые компьютеры решают задачи, недоступные для классических компьютеры, открывая новые горизонты в науке и технологиях.</p>
+                <div class="slide-content slide-in">
+                    <h1 class="slide-title">Умные города</h1>
+                    <h2 class="slide-subtitle">Технологии для устойчивой урбанизации</h2>
+                    <p class="slide-text">Инновационные решения делают города более эффективными, экологичными и комфортными для жизни.</p>
+                    
+                    <div class="stats-container">
+                        <div class="stat-item">
+                            <div class="stat-number">68%</div>
+                            <div class="stat-label">населения мира к 2050 году будет жить в городах</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">40%</div>
+                            <div class="stat-label">снижение выбросов CO₂ в умных городах</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">30%</div>
+                            <div class="stat-label">экономия энергии с помощью умных сетей</div>
+                        </div>
+                    </div>
                     
                     <ul class="slide-list">
-                        <li>Экспоненциальное ускорение вычислений для определенных задач</li>
-                        <li>Прорывы в криптографии и создании новых материалов</li>
-                        <li>Моделирование сложных молекулярных структур для фармацевтики</li>
-                        <li>Оптимизация сложных систем и логистики</li>
+                        <li><i class="fas fa-recycle"></i> <span class="highlight">Умные отходы</span> - автоматизированные системы сортировки и переработки</li>
+                        <li><i class="fas fa-traffic-light"></i> <span class="highlight">Интеллектуальный транспорт</span> - оптимизация потоков и электромобили</li>
+                        <li><i class="fas fa-leaf"></i> <span class="highlight">Вертикальные фермы</span> - локальное производство продуктов питания</li>
+                        <li><i class="fas fa-tint"></i> <span class="highlight">Умное водоснабжение</span> - мониторинг и оптимизация потребления воды</li>
                     </ul>
                 </div>
                 <div class="slide-number">3 / 5</div>
@@ -395,27 +597,38 @@
             
             <!-- Слайд 4 -->
             <div class="slide">
-                <div class="slide-content fade-in-up">
-                    <h1 class="slide-title">Интернет вещей (IoT)</h1>
-                    <h2 class="slide-subtitle">Связанный мир</h2>
-                    <p class="slide-text">Миллиарды устройств, подключенных к интернету, создают интеллектуальные экосистемы для умных домов, городов и промышленности.</p>
+                <div class="slide-content slide-in">
+                    <h1 class="slide-title">Цифровая устойчивость</h1>
+                    <h2 class="slide-subtitle">Технологии с низким воздействием на окружающую среду</h2>
+                    <p class="slide-text">Цифровая трансформация может быть экологически ответственной при использовании правильных подходов.</p>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">2023</div>
+                            <div class="timeline-desc">Зеленые центры обработки данных</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2025</div>
+                            <div class="timeline-desc">Энергоэффективные алгоритмы ИИ</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2027</div>
+                            <div class="timeline-desc">Квантовые вычисления для оптимизации ресурсов</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2030</div>
+                            <div class="timeline-desc">Полностью углеродно-нейтральный интернет</div>
+                        </div>
+                    </div>
                     
                     <div class="slide-grid">
                         <div class="grid-item">
-                            <h3 class="grid-title">Умный дом</h3>
-                            <p>Автоматизированные системы управления освещением, отоплением и безопасностью.</p>
+                            <h3 class="grid-title"><i class="fas fa-cloud"></i> Устойчивые облачные решения</h3>
+                            <p>ЦОД на возобновляемой энергии и с эффективным охлаждением, снижающие углеродный след на 70%.</p>
                         </div>
                         <div class="grid-item">
-                            <h3 class="grid-title">Промышленный IoT</h3>
-                            <p>Оптимизация производственных процессов и прогнозирование обслуживания оборудования.</p>
-                        </div>
-                        <div class="grid-item">
-                            <h3 class="grid-title">Умные города</h3>
-                            <p>Интеллектуальные системы управления транспортом, энергопотреблением и общественной безопасностью.</p>
-                        </div>
-                        <div class="grid-item">
-                            <h3 class="grid-title">Носимые устройства</h3>
-                            <p>Технологии для мониторинга здоровья и фитнеса в реальном времени.</p>
+                            <h3 class="grid-title"><i class="fas fa-code"></i> Экологичное программирование</h3>
+                            <p>Оптимизированные алгоритмы, требующие меньше вычислительных ресурсов и энергии для выполнения.</p>
                         </div>
                     </div>
                 </div>
@@ -424,19 +637,19 @@
             
             <!-- Слайд 5 -->
             <div class="slide">
-                <div class="slide-content fade-in-up">
-                    <h1 class="slide-title">Будущее технологий</h1>
-                    <h2 class="slide-subtitle">Что нас ждет впереди?</h2>
-                    <p class="slide-text">Технологии продолжают развиваться экспоненциально, открывая новые возможности и создавая вызовы для человечества.</p>
+                <div class="slide-content slide-in">
+                    <h1 class="slide-title">Наше устойчивое будущее</h1>
+                    <h2 class="slide-subtitle">Создавая мир для следующих поколений</h2>
+                    <p class="slide-text">Технологии устойчивого развития открывают путь к гармоничному сосуществованию человечества и природы.</p>
                     
                     <ul class="slide-list">
-                        <li><span class="highlight">Нейроинтерфейсы</span> - прямое взаимодействие мозга с компьютерами</li>
-                        <li><span class="highlight">Биоинженерия</span> - редактирование генома и создание искусственных органов</li>
-                        <li><span class="highlight">Космическая экспансия</span> - колонизация Марса и добыча ресурсов на астероидах</li>
-                        <li><span class="highlight">Устойчивые технологии</span> - решения для борьбы с изменением климата</li>
+                        <li><i class="fas fa-seedling"></i> <span class="highlight">Регенеративное сельское хозяйство</span> - восстановление почв и экосистем</li>
+                        <li><i class="fas fa-industry"></i> <span class="highlight">Циркулярная экономика</span> - безотходное производство и переработка</li>
+                        <li><i class="fas fa-car-battery"></i> <span class="highlight">Энергохранилища нового поколения</span> - эффективное накопление энергии</li>
+                        <li><i class="fas fa-tree"></i> <span class="highlight">Технологии поглощения CO₂</span> - прямое удаление углерода из атмосферы</li>
                     </ul>
                     
-                    <p class="slide-text" style="margin-top: 2rem;">Будущее формируется нашими сегодняшними решениями и инновациями.</p>
+                    <p class="slide-text" style="margin-top: 2rem; font-size: 1.6rem; color: var(--accent-color);">Устойчивое развитие — это не выбор, а необходимость для будущего нашей планеты.</p>
                 </div>
                 <div class="slide-number">5 / 5</div>
             </div>
@@ -444,21 +657,17 @@
         
         <div class="controls">
             <button class="btn" id="prev-btn">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                    <path d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                </svg>
+                <i class="fas fa-arrow-left"></i>
                 Назад
             </button>
             <button class="btn" id="next-btn">
                 Вперед
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                    <path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-                </svg>
+                <i class="fas fa-arrow-right"></i>
             </button>
         </div>
         
         <div class="footer">
-            Современная HTML презентация | Технологии будущего
+            Инновации в устойчивом развитии | Презентация создана с использованием современных веб-технологий
         </div>
     </div>
 
@@ -477,6 +686,12 @@
                     slide.classList.remove('active', 'prev');
                     if (index === currentSlide) {
                         slide.classList.add('active');
+                        
+                        // Добавляем анимацию для контента
+                        const content = slide.querySelector('.slide-content');
+                        content.classList.remove('slide-in');
+                        void content.offsetWidth; // Перезапуск анимации
+                        content.classList.add('slide-in');
                     } else if (index < currentSlide) {
                         slide.classList.add('prev');
                     }
@@ -493,12 +708,6 @@
                 // Обновление состояния кнопок
                 prevBtn.disabled = currentSlide === 0;
                 nextBtn.disabled = currentSlide === slides.length - 1;
-                
-                // Добавление анимации для контента
-                const activeContent = document.querySelector('.slide.active .slide-content');
-                activeContent.classList.remove('fade-in-up');
-                void activeContent.offsetWidth; // Перезапуск анимации
-                activeContent.classList.add('fade-in-up');
             }
             
             // Переход к следующему слайду
@@ -534,12 +743,35 @@
             
             // Обработчики событий для клавиатуры
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') {
+                if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
                     nextSlide();
-                } else if (e.key === 'ArrowLeft') {
+                } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
                     prevSlide();
                 }
             });
+            
+            // Добавляем обработчик для свайпов на мобильных устройствах
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            document.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            document.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                if (touchEndX < touchStartX - swipeThreshold) {
+                    nextSlide();
+                }
+                if (touchEndX > touchStartX + swipeThreshold) {
+                    prevSlide();
+                }
+            }
             
             // Инициализация
             updateSlides();

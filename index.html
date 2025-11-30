@@ -41,6 +41,7 @@
             flex: 1;
             position: relative;
             overflow: hidden;
+            padding-bottom: 120px; /* Добавляем отступ снизу для кнопок */
         }
 
         .slide {
@@ -78,6 +79,7 @@
             backdrop-filter: blur(10px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px; /* Отступ от кнопок */
         }
 
         .slide-title {
@@ -125,14 +127,15 @@
         }
 
         .controls {
-            position: absolute;
-            bottom: 30px;
+            position: fixed;
+            bottom: 60px; /* Поднимаем кнопки над футером */
             left: 0;
             width: 100%;
             display: flex;
             justify-content: center;
             gap: 20px;
             z-index: 100;
+            padding: 0 20px;
         }
 
         .btn {
@@ -227,14 +230,17 @@
         }
 
         .footer {
-            position: absolute;
-            bottom: 10px;
+            position: fixed;
+            bottom: 0;
             left: 0;
             width: 100%;
             text-align: center;
             font-size: 0.9rem;
             opacity: 0.7;
-            padding: 10px;
+            padding: 15px;
+            background-color: rgba(42, 42, 60, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 90;
         }
 
         /* Анимации */
@@ -290,6 +296,39 @@
             .btn {
                 padding: 10px 20px;
                 font-size: 0.9rem;
+            }
+            
+            .controls {
+                bottom: 50px; /* Увеличиваем отступ от футера на мобильных */
+                padding: 0 15px;
+            }
+            
+            .slides-container {
+                padding-bottom: 100px; /* Уменьшаем отступ на мобильных */
+            }
+            
+            .slide-content {
+                padding: 1.5rem;
+                margin-bottom: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .controls {
+                bottom: 45px;
+            }
+            
+            .slides-container {
+                padding-bottom: 90px;
+            }
+            
+            .slide {
+                padding: 1rem;
+            }
+            
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
             }
         }
     </style>
